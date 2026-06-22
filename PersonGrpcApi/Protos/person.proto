@@ -1,0 +1,38 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "PersonGrpcApi.GrpcModels";
+
+package person;
+
+message Empty { }
+
+message PersonIdRequest {
+	int32 id = 1;
+}
+
+message PersonResponse {
+	int32 id = 1;
+	string firstName = 2;
+	string lastName = 3;
+	string nationalCode = 4;
+	string birthDate = 5;
+}
+
+message PersonListResponse {
+	repeated PersonResponse persons = 1;
+}
+
+message CreatePersonRequest {
+	string firstName = 1;
+	string lastName = 2;
+	string nationalCode = 3;
+	string birthDate = 4;
+}
+
+message UpdatePersonRequest {
+	int32 id = 1;
+	string firstName = 2;
+	string lastName = 3;
+	string nationalCode = 4;
+	string birthDate = 5;
+}
