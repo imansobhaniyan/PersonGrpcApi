@@ -14,7 +14,7 @@ namespace PersonGrpcApi.GrpcModels
             FirstName = person.FirstName;
             LastName = person.LastName;
             NationalCode = person.NationalCode;
-            BirthDate = person.BirthDate?.ToString();
+            BirthDate = person.BirthDate.HasValue ? person.BirthDate?.ToString(BIRTH_DATE_FORMAT) : string.Empty;
         }
     }
 }
