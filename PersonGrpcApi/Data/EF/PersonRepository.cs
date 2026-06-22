@@ -1,4 +1,6 @@
-﻿using PersonGrpcApi.Data.Abstractions;
+﻿using Microsoft.EntityFrameworkCore;
+
+using PersonGrpcApi.Data.Abstractions;
 using PersonGrpcApi.Models;
 
 namespace PersonGrpcApi.Data.EF
@@ -12,29 +14,46 @@ namespace PersonGrpcApi.Data.EF
             this.dbContext = dbContext;
         }
 
-        public Task<Person> GetByIdAsync(int id)
+        public async Task<Person?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await dbContext.People.Where(f => f.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task<List<Person>> GetAllAsync()
+        public async Task<List<Person>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await dbContext.People.ToListAsync();
         }
 
-        public Task<bool> ExistsAsync(string nationalCode)
+        public async Task<bool> ExistsAsync(string nationalCode)
         {
-            throw new NotImplementedException();
+            return await dbContext.People.Where(f => f.NationalCode == nationalCode).AnyAsync();
         }
 
         public Task<Person> CreateAsync(string firstName, string lastName, string nationalCode, DateTime? birthDate)
         {
-            throw new NotImplementedException();
+            var person = new Person
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                NationalCode = nationalCode,
+                BirthDate = birthDate
+            };
+
+            dbContext.People.Add(person);
+
+            return Task.FromResult(person);
         }
 
-        public Task<Person> UpdateAsync(int id, string firstName, string lastName, string nationalCode, DateTime? birthDate)
+        public async Task<Person> UpdateAsync(int id, string firstName, string lastName, string nationalCode, DateTime? birthDate)
         {
-            throw new NotImplementedException();
+            var person = await GetByIdAsync(id);
+
+            person!.FirstName = firstName;
+            person.LastName = lastName;
+            person.NationalCode = nationalCode;
+            person.BirthDate = birthDate;
+
+            return person;
         }
 
         public Task<bool> DeleteAsync(int id)

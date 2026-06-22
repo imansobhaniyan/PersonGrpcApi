@@ -4,7 +4,7 @@ namespace PersonGrpcApi.Data.Abstractions;
 
 public interface IPersonRepository
 {
-    Task<Person> GetByIdAsync(int id);
+    Task<Person?> GetByIdAsync(int id);
 
     Task<List<Person>> GetAllAsync();
 
