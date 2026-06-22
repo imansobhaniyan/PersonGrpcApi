@@ -86,6 +86,8 @@ namespace PersonGrpcApi.Services
             if (deleteResult is false)
                 throw new RpcException(new Status(StatusCode.NotFound, "Person not found"));
 
+            await unitOfWork.CommitAsync();
+
             return new Empty();
         }
 
