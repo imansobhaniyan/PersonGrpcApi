@@ -56,9 +56,16 @@ namespace PersonGrpcApi.Data.EF
             return person;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var person = await GetByIdAsync(id);
+
+            if (person == null)
+                return false;
+
+            dbContext.People.Remove(person);
+
+            return true;
         }
     }
 }
