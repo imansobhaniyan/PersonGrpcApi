@@ -23,5 +23,16 @@ namespace PersonGrpcApi.Services
 
             return new PersonResponse(person);
         }
+
+        public override async Task<PersonListResponse> GetAll(Empty request, ServerCallContext context)
+        {
+            var people = await unitOfWork.PersonRepository.GetAllAsync();
+
+            var result = new PersonListResponse();
+
+            result.Persons.AddRange(people.ConvertAll(person => new PersonResponse(person)));
+
+            return result;
+        }
     }
 }
