@@ -22,7 +22,7 @@ namespace PersonGrpcApi.Services
         {
             var person = await unitOfWork.PersonRepository.GetByIdAsync(request.Id);
 
-            if (request == null)
+            if (person == null)
                 throw new RpcException(new Status(StatusCode.NotFound, "Person not found"));
 
             return new PersonResponse(person);
