@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-	<Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
   	<Protobuf Include="Protos\person.proto" GrpcServices="Server" />
   </ItemGroup>
 	
