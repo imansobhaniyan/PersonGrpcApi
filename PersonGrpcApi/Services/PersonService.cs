@@ -34,5 +34,15 @@ namespace PersonGrpcApi.Services
 
             return result;
         }
+
+        public override async Task<Empty> Delete(PersonIdRequest request, ServerCallContext context)
+        {
+            var deleteResult = await unitOfWork.PersonRepository.DeleteAsync(request.Id);
+
+            if (deleteResult is false)
+                throw new RpcException(new Status(StatusCode.NotFound, "Person not found"));
+
+            return new Empty();
+        }
     }
 }
