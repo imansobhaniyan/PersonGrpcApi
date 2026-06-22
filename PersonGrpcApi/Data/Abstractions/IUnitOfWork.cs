@@ -3,4 +3,6 @@
 public interface IUnitOfWork
 {
     IPersonRepository PersonRepository { get; }
+
+    Task CommitAsync();
 }
