@@ -36,3 +36,20 @@ message UpdatePersonRequest {
 	string nationalCode = 4;
 	string birthDate = 5;
 }
+
+service PersonProtoService {
+	rpc Create(CreatePersonRequest)
+		returns (PersonResponse);
+
+	rpc GetById(PersonIdRequest)
+		returns (PersonResponse);
+
+	rpc GetAll(Empty)
+		returns (PersonListResponse);
+
+	rpc Update(UpdatePersonRequest)
+		returns (PersonResponse);
+
+	rpc Delete(PersonIdRequest)
+		returns (Empty);
+}
